@@ -46,11 +46,14 @@ for _ in range(5):                                        # Increase to display 
         colorized_streams.append(np.asanyarray(colorizer.colorize(depth_frame).get_data()))
     if color_frame:
         colorized_streams.append(np.asanyarray(color_frame.get_data()))
-    
+    check1 = 0
     for i, ax in enumerate(axs.flatten()):                # Iterate over all (Depth and RGB) colorized frames
+        check1 += 1                                     # we don't want the first plot, which is depth file (for now)
         if i >= len(colorized_streams): continue          # When getting less frames than expected
         plt.sca(ax)                                       # Set the current Axes and Figure
         plt.imshow(colorized_streams[i])                  # colorized frame to display
+        if check1 = 1:                                  # save RGB plot as png file, for YOLOv7
+            plt.savefig('rover.png')
         plt.title(title[i])                               # Add title for each subplot
     clear_output(wait=True)                               # Clear any previous frames from the display
     plt.tight_layout()                                    # Adjusts display size to fit frames
